@@ -1,7 +1,7 @@
 <template>
   <div class="new-char-wrapper">
     <h1>Character Form</h1>
-    <form class="char-form" ref="form" v-on:click.prevent="handleSubmit">
+    <form class="char-form" ref="form" v-on:submit.prevent="handleSubmit">
       <NewCharInput label="NAME" name="name" v-model="name" />
       <NewCharInput label="INITIATIVE" name="initiative" v-model="initiative" type="number" />
       <div class="submit-row">
@@ -30,6 +30,26 @@ export default {
       const charInitiative = this.$refs.form.initiative.value;
       const charId = this.$uuid.v4();
       const newChar = new Character(charName, charInitiative, charId);
+      this.storeCharacterLocally(newChar);
+    },
+    storeCharacterLocally(charToAdd) {
+      const localStorage = window.localStorage;
+      // const existingList = localStorage.getItem("initiativeList");
+      if (localStorage.getItem("initiativeList") === null) {
+        const initiativeList = {};
+        initiativeList[charToAdd.id] = {
+          name: charToAdd.name,
+          initiative: charToAdd.initiative
+        };
+        localStorage.setItem("initiativeList", JSON.stringify(initiativeList));
+      } else {
+        let existingList = JSON.parse(localStorage.getItem("initiativeList"));
+        existingList[charToAdd.id] = {
+          name: charToAdd.name,
+          initiative: charToAdd.initiative
+        };
+        localStorage.setItem("initiativeList", JSON.stringify(existingList));
+      }
     }
   }
 };
