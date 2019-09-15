@@ -4,6 +4,7 @@
     <form class="char-form" ref="form" v-on:submit.prevent="handleSubmit">
       <NewCharInput label="NAME" name="name" v-model="name" />
       <NewCharInput label="INITIATIVE" name="initiative" v-model="initiative" type="number" />
+      <NewCharInput label="HP" name="hp" v-model="hp" type="number" />
       <div class="submit-row">
         <button>Primary</button>
       </div>
@@ -21,15 +22,17 @@ export default {
   data() {
     return {
       name: "",
-      initiative: ""
+      initiative: "",
+      hp: 0
     };
   },
   methods: {
     handleSubmit() {
       const charName = this.$refs.form.name.value;
       const charInitiative = this.$refs.form.initiative.value;
+      const charHp = this.$refs.form.hp.value;
       const charId = this.$uuid.v4();
-      const newChar = new Character(charName, charInitiative, charId);
+      const newChar = new Character(charName, charInitiative, charId, charHp);
       this.storeCharacterLocally(newChar);
     },
     storeCharacterLocally(charToAdd) {
@@ -39,14 +42,16 @@ export default {
         const initiativeList = {};
         initiativeList[charToAdd.id] = {
           name: charToAdd.name,
-          initiative: charToAdd.initiative
+          initiative: charToAdd.initiative,
+          hp: charToAdd.hp
         };
         localStorage.setItem("initiativeList", JSON.stringify(initiativeList));
       } else {
         let existingList = JSON.parse(localStorage.getItem("initiativeList"));
         existingList[charToAdd.id] = {
           name: charToAdd.name,
-          initiative: charToAdd.initiative
+          initiative: charToAdd.initiative,
+          hp: charToAdd.hp
         };
         localStorage.setItem("initiativeList", JSON.stringify(existingList));
       }

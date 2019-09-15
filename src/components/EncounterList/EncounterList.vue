@@ -1,11 +1,11 @@
 <template>
   <div class="encounter-list">
-    <h1>ENCOUNTER LIST</h1>
-    <!-- <EncounterCard
+    <EncounterCard
       v-for="character in initiativeList"
       v-bind:key="character.id"
+      v-bind:hp="character.hp"
       v-bind:character="character"
-    />-->
+    />
   </div>
 </template>
 <script>
@@ -34,6 +34,7 @@ export default {
         const charDisplayData = {
           name: charData.name,
           initiative: JSON.parse(charData.initiative),
+          hp: charData.hp,
           id: retreivedListKeys[index]
         };
         return charDisplayData;
@@ -43,10 +44,17 @@ export default {
         (a, b) => a.initiative - b.initiative
       );
 
+      this.initiativeList = orderedList;
+
       // set chars from storage to this.initiativeList
     }
   }
 };
 </script>
 <style lang="scss" scoped>
+.encounter-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>
