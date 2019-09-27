@@ -16,6 +16,8 @@ export default {
 </script>
 
 <style>
+@import "./assets/styles/normalize.css";
+
 @font-face {
   font-family: "Oswald";
   src: url("./assets/fonts/Oswald/Oswald-Regular.ttf") format("truetype");
@@ -30,12 +32,19 @@ export default {
   font-style: normal;
 }
 
+@font-face {
+  font-family: "HeeboBold";
+  src: url("./assets/fonts/Heebo/Heebo-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-color: #1a1a1d;
+  height: 100vh;
 }
 </style>
