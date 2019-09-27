@@ -1,12 +1,19 @@
 <template>
   <div class="new-char-wrapper">
-    <h1>Character Form</h1>
     <form class="char-form" ref="form" v-on:submit.prevent="handleSubmit">
-      <NewCharInput label="NAME" name="name" v-model="name" />
-      <NewCharInput label="INITIATIVE" name="initiative" v-model="initiative" type="number" />
-      <NewCharInput label="HP" name="hp" v-model="hp" type="number" />
+      <NewCharInput class="name-input" label="NAME" name="name" v-model="name" />
+      <div class="stat-wrapper">
+        <NewCharInput
+          class="init-input"
+          label="INITIATIVE"
+          name="initiative"
+          v-model="initiative"
+          type="number"
+        />
+        <NewCharInput class="hp-input" label="HP" name="hp" v-model="hp" type="number" />
+      </div>
       <div class="submit-row">
-        <button>Primary</button>
+        <button class="submit">SUBMIT</button>
       </div>
     </form>
   </div>
@@ -26,60 +33,68 @@ export default {
       hp: 0
     };
   },
+  props: ["addChar"],
   methods: {
     handleSubmit() {
       const charName = this.$refs.form.name.value;
       const charInitiative = this.$refs.form.initiative.value;
       const charHp = this.$refs.form.hp.value;
+      if (charName === "" || charInitiative === "") {
+        return;
+      }
       const charId = this.$uuid.v4();
       const newChar = new Character(charName, charInitiative, charId, charHp);
-      this.storeCharacterLocally(newChar);
-    },
-    storeCharacterLocally(charToAdd) {
-      const localStorage = window.localStorage;
-      // const existingList = localStorage.getItem("initiativeList");
-      if (localStorage.getItem("initiativeList") === null) {
-        const initiativeList = {};
-        initiativeList[charToAdd.id] = {
-          name: charToAdd.name,
-          initiative: charToAdd.initiative,
-          hp: charToAdd.hp
-        };
-        localStorage.setItem("initiativeList", JSON.stringify(initiativeList));
-      } else {
-        let existingList = JSON.parse(localStorage.getItem("initiativeList"));
-        existingList[charToAdd.id] = {
-          name: charToAdd.name,
-          initiative: charToAdd.initiative,
-          hp: charToAdd.hp
-        };
-        localStorage.setItem("initiativeList", JSON.stringify(existingList));
-      }
+      this.$refs.form.name.value = "";
+      this.$refs.form.initiative.value = "";
+      this.$refs.form.hp.value = "";
+      this.$emit("add-char", newChar);
     }
   }
 };
 </script>
-<style lang="css" scoped>
+<style lang="scss" scoped>
+@import "../../assets/styles/mixins.scss";
+@import "../../assets/styles/variables.scss";
+
 .new-char-wrapper {
-  border: solid red 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .char-form {
   display: flex;
   flex-direction: column;
-  border: solid magenta 1px;
-  width: 300px;
+  width: 250px;
 }
 .newChar-input {
   border: solid black 1px;
 }
+
+.name-input {
+  width: 250px;
+}
+
+.init-input,
+.hp-input {
+  width: 50px;
+}
+
+.stat-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
 .submit-row {
-  border: solid green 1px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
 .submit {
-  width: 75px;
-  margin-right: 20px;
+  width: 80px;
+  border: solid $white 1px;
+  border-radius: 5px;
+  font-family: "Heebo";
+  background: $grey;
+  color: $primary;
 }
 </style>
