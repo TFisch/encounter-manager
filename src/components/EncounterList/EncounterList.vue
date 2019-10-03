@@ -5,6 +5,7 @@
       <h2 class="header col-name">NAME</h2>
       <h2 class="header col-hp">HP</h2>
     </div>
+
     <EncounterCard
       v-for="character in data.initiativeList"
       v-bind:key="character.id"
@@ -22,14 +23,14 @@ export default {
   data() {
     return {
       data: {
-        initiativeList: []
+        initiativeList: [],
+        activeId: null
       }
     };
   },
   methods: {
     populateList(charList) {
       const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
-      console.log(sortedList);
       this.data.initiativeList = sortedList;
     }
   },
@@ -37,6 +38,11 @@ export default {
     EventBus.$on("add-to-list", charList => {
       this.populateList(charList);
     });
+    EventBus.$on("update-active-char", activeId => {
+      this.activeId = activeId;
+      console.log(this.activeId);
+    });
+    console.log(this.activeId);
   }
 };
 </script>
@@ -54,7 +60,7 @@ export default {
 }
 .header {
   font-size: $fnt-sm;
-  color: $primary;
+  color: $primary-red;
 }
 .col-init,
 .col-hp {

@@ -7,12 +7,13 @@
           <div class="line"></div>
           <div class="line"></div>
         </nav>
-        <img src="./../assets/icons/swords.svg" class="icon" />
-        <div class="spacer"></div>
+        <img src="./../assets/icons/swords.svg" class="icon" v-on:click="start()" />
+        <div class="spacer" v-on:click="next()">*</div>
+        <div class="spacer" v-on:click="previous()">-</div>
       </div>
-      <NewCharacterForm @add-char="addChar" />
+      <NewCharacterForm @add-char="addChar" v-if="formActive" />
     </div>
-    <EncounterList v-bind="encounterList" @add-char="addChar" />
+    <EncounterList v-bind="encounterList" @add-char="addChar" update-active-char="charId" />
     <transition name="fade">
       <MobileMenu v-if="menuOpen" v-bind:menuOpen="menuOpen"></MobileMenu>
     </transition>
@@ -25,6 +26,7 @@ import NewCharacterForm from "./NewCharacterForm/NewCharacterForm.vue";
 import EncounterList from "./EncounterList/EncounterList";
 import EventBus from "./EventBus.js";
 import MobileMenu from "./MobileMenu.vue";
+import Encounter from "../classes/Encounter";
 
 export default {
   name: "EncounterDashboard",
@@ -33,7 +35,10 @@ export default {
     return {
       newChar: {},
       encounterList: [],
-      menuOpen: false
+      menuOpen: false,
+      formActive: true,
+      encounter: null,
+      activeChar: ""
     };
   },
   methods: {
@@ -41,6 +46,23 @@ export default {
       this.newChar = newChar;
       this.encounterList.push(newChar);
       EventBus.$emit("add-to-list", this.encounterList);
+    },
+    start() {
+      let encounter = new Encounter(this.encounterList);
+      this.encounter = encounter;
+      this.activeChar = encounter.combatants[0];
+      this.formActive = !this.formActive;
+      EventBus.$emit("update-active-char", this.activeChar.id);
+    },
+    next() {
+      const nextChar = this.encounter.advance();
+      this.activeChar = nextChar;
+      EventBus.$emit("update-active-char", this.activeChar.id);
+    },
+    previous() {
+      const lastChar = this.encounter.stepBack();
+      this.activeChar = lastChar;
+      EventBus.$emit("update-active-char", this.activeChar.id);
     }
   },
   mounted() {
@@ -58,6 +80,11 @@ h1 {
 h3 {
   margin: 40px 0 0;
   font-family: "Oswald";
+}
+.spacer {
+  font-size: 50px;
+  text-align: left;
+  color: green;
 }
 ul {
   list-style-type: none;

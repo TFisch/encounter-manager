@@ -1,28 +1,28 @@
 export default class Encounter {
-  constructor(party, npcs) {
-    this.party = party || [];
-    this.npcs = npcs || [];
+  constructor(combatants) {
+    this.combatants = combatants || [];
+    this.turn = null;
+
+    this.initiateEncouter(this.combatants);
   }
 
-  orderInitiative() {
-    const combatants = this.party.concat(this.npcs);
-    const ordered = combatants.sort((a, b) => a.initiative - b.initiative);
-    return ordered;
+  initiateEncouter(combatants) {
+    this.turn = 0;
+    const currentTurnCharacter = combatants[0];
+    return currentTurnCharacter;
   }
 
-  initiateEncouter() {}
+  advance() {
+    this.turn = this.turn + 1;
+    const currentTurnCharacter = this.combatants[this.turn];
+    return currentTurnCharacter;
+  }
 
-  advanceEncounter() {}
+  stepBack() {
+    this.turn = this.turn - 1;
+    const currentTurnCharacter = this.combatants[this.turn];
+    return currentTurnCharacter;
+  }
 
-  stepBackEncouter() {}
-
-  finishEnounter() {}
+  // finishEnounter() {}
 }
-
-// const billy = new Character('Billy', 8);
-// const jammy = new Character('Jammy', 6);
-// const squib = new Character('Squib', 3);
-// const cid = new NPC('Spider', 14);
-
-// const newParty = [billy,jammy,squib];
-// const baddies = [cid];
