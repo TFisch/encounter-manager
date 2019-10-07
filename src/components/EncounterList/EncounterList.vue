@@ -5,11 +5,11 @@
       <h2 class="header col-name">NAME</h2>
       <h2 class="header col-hp">HP</h2>
     </div>
-
     <EncounterCard
       v-for="character in data.initiativeList"
       v-bind:key="character.id"
       v-bind:character="character"
+      v-bind:activeChar="data.activeId"
     />
   </div>
 </template>
@@ -40,9 +40,7 @@ export default {
     });
     EventBus.$on("update-active-char", activeId => {
       this.activeId = activeId;
-      console.log(this.activeId);
     });
-    console.log(this.activeId);
   }
 };
 </script>
@@ -50,9 +48,11 @@ export default {
 @import "../../assets/styles/mixins.scss";
 @import "../../assets/styles/variables.scss";
 .encounter-list {
+  font-family: "OpenSans";
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 80px;
 }
 .header-row {
   display: flex;

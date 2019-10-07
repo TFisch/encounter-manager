@@ -16,12 +16,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "../assets/styles/variables.scss";
+
 .mobile-menu-wrapper {
   height: 75%;
   width: 100%;
   position: fixed;
   z-index: 44;
-  background-color: pink;
+  background-color: $grey;
 }
 .close {
   position: absolute;
@@ -31,7 +33,6 @@ export default {
   bottom: 0px;
   width: 32px;
   height: 32px;
-  opacity: 0.3;
 }
 .close:hover {
   opacity: 1;

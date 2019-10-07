@@ -20,7 +20,7 @@ export default {
 @import "../../assets/styles/variables.scss";
 label {
   text-align: left;
-  color: $primary;
+  color: $primary-red;
 }
 .input-wrapper {
   display: flex;

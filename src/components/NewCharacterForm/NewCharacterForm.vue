@@ -33,7 +33,6 @@ export default {
       hp: 0
     };
   },
-  props: ["addChar"],
   methods: {
     handleSubmit() {
       const charName = this.$refs.form.name.value;
@@ -95,6 +94,6 @@ export default {
   border-radius: 5px;
   font-family: "Heebo";
   background: $grey;
-  color: $primary;
+  color: $primary-red;
 }
 </style>

@@ -19,6 +19,21 @@ export default {
 @import "./assets/styles/normalize.css";
 
 @font-face {
+  font-family: "Staatliches";
+  src: url("./assets/fonts/Staatliches/Staatliches-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("./assets/fonts/Open_Sans/OpenSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Oswald";
   src: url("./assets/fonts/Oswald/Oswald-Regular.ttf") format("truetype");
   font-weight: normal;

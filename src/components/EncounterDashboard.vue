@@ -8,8 +8,7 @@
           <div class="line"></div>
         </nav>
         <img src="./../assets/icons/swords.svg" class="icon" v-on:click="start()" />
-        <div class="spacer" v-on:click="next()">*</div>
-        <div class="spacer" v-on:click="previous()">-</div>
+        <div class="spacer"></div>
       </div>
       <NewCharacterForm @add-char="addChar" v-if="formActive" />
     </div>
@@ -17,6 +16,7 @@
     <transition name="fade">
       <MobileMenu v-if="menuOpen" v-bind:menuOpen="menuOpen"></MobileMenu>
     </transition>
+    <Controller v-if="encounterActive" @next="next" @previous="previous" />
   </div>
 </template>
 
@@ -27,10 +27,11 @@ import EncounterList from "./EncounterList/EncounterList";
 import EventBus from "./EventBus.js";
 import MobileMenu from "./MobileMenu.vue";
 import Encounter from "../classes/Encounter";
+import Controller from "./Controller";
 
 export default {
   name: "EncounterDashboard",
-  components: { NewCharacterForm, EncounterList, MobileMenu },
+  components: { NewCharacterForm, EncounterList, MobileMenu, Controller },
   data() {
     return {
       newChar: {},
@@ -38,6 +39,7 @@ export default {
       menuOpen: false,
       formActive: true,
       encounter: null,
+      encounterActive: false,
       activeChar: ""
     };
   },
@@ -48,21 +50,37 @@ export default {
       EventBus.$emit("add-to-list", this.encounterList);
     },
     start() {
-      let encounter = new Encounter(this.encounterList);
-      this.encounter = encounter;
-      this.activeChar = encounter.combatants[0];
-      this.formActive = !this.formActive;
-      EventBus.$emit("update-active-char", this.activeChar.id);
+      if (!this.encounterActive) {
+        this.encounterActive = true;
+        let encounter = new Encounter(this.encounterList);
+        this.encounter = encounter;
+        this.activeChar = encounter.combatants[0];
+        this.formActive = !this.formActive;
+        EventBus.$emit("update-active-char", this.activeChar.id);
+      } else {
+        this.endEncounter();
+      }
     },
     next() {
-      const nextChar = this.encounter.advance();
-      this.activeChar = nextChar;
-      EventBus.$emit("update-active-char", this.activeChar.id);
+      if (this.encounterActive) {
+        const nextChar = this.encounter.advance();
+        this.activeChar = nextChar;
+        EventBus.$emit("update-active-char", this.activeChar.id);
+      } else {
+        return;
+      }
     },
     previous() {
-      const lastChar = this.encounter.stepBack();
-      this.activeChar = lastChar;
-      EventBus.$emit("update-active-char", this.activeChar.id);
+      if (this.encounterActive) {
+        const lastChar = this.encounter.stepBack();
+        this.activeChar = lastChar;
+        EventBus.$emit("update-active-char", this.activeChar.id);
+      } else {
+        return;
+      }
+    },
+    endEncounter() {
+      this.encounterActive = false;
     }
   },
   mounted() {
@@ -79,7 +97,7 @@ h1 {
 }
 h3 {
   margin: 40px 0 0;
-  font-family: "Oswald";
+  font-family: "Staatliches";
 }
 .spacer {
   font-size: 50px;
