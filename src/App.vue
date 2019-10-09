@@ -34,23 +34,16 @@ export default {
 }
 
 @font-face {
-  font-family: "Oswald";
-  src: url("./assets/fonts/Oswald/Oswald-Regular.ttf") format("truetype");
-  font-weight: normal;
+  font-family: "OpenSans-Semi";
+  src: url("./assets/fonts/Open_Sans/OpenSans-SemiBold.ttf") format("truetype");
+  font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Heebo";
-  src: url("./assets/fonts/Heebo/Heebo-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "HeeboBold";
-  src: url("./assets/fonts/Heebo/Heebo-Bold.ttf") format("truetype");
-  font-weight: normal;
+  font-family: "OpenSans-Bold";
+  src: url("./assets/fonts/Open_Sans/OpenSans-Bold.ttf") format("truetype");
+  font-weight: bold;
   font-style: normal;
 }
 
