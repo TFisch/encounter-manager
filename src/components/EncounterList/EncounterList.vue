@@ -5,21 +5,24 @@
       <h2 class="header col-name">NAME</h2>
       <h2 class="header col-hp">HP</h2>
     </div>
-    <EncounterCard
-      v-for="character in data.initiativeList"
-      v-bind:key="character.id"
-      v-bind:character="character"
-      v-bind:activeChar="data.activeId"
-    />
+    <draggable v-model="data.iniativeList" group="people" @start="drag=true" @end="drag=false">
+      <EncounterCard
+        v-for="character in data.initiativeList"
+        v-bind:key="character.id"
+        v-bind:character="character"
+        v-bind:activeChar="data.activeId"
+      />
+    </draggable>
   </div>
 </template>
 <script>
 import EncounterCard from "../EncounterCard/EncounterCard";
 import EventBus from "../EventBus";
+import draggable from "vuedraggable";
 
 export default {
   name: "EncounterList",
-  components: { EncounterCard },
+  components: { EncounterCard, draggable },
   data() {
     return {
       data: {
