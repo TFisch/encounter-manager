@@ -50,12 +50,14 @@ export default {
 <style lang="scss" scoped>
 @import "../../assets/styles/mixins.scss";
 @import "../../assets/styles/variables.scss";
+
 .encounter-list {
   font-family: "OpenSans";
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 80px;
+  overflow: auto;
 }
 .header-row {
   display: flex;
