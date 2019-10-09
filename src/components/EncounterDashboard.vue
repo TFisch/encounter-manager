@@ -2,21 +2,21 @@
   <div class="dashboard-wrapper">
     <div class="form-wrapper">
       <div class="header-row">
-        <nav class="hamburger" v-on:click="menuOpen = !menuOpen">
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </nav>
         <img src="./../assets/icons/swords.svg" class="icon" v-on:click="start()" />
-        <div class="spacer"></div>
       </div>
       <NewCharacterForm @add-char="addChar" v-if="formActive" />
     </div>
     <EncounterList v-bind="encounterList" @add-char="addChar" update-active-char="charId" />
     <transition name="fade">
-      <MobileMenu v-if="menuOpen" v-bind:menuOpen="menuOpen"></MobileMenu>
+      <MobileMenu v-if="menuOpen"></MobileMenu>
     </transition>
-    <Controller v-if="encounterActive" @next="next" @previous="previous" />
+    <Controller
+      v-bind:menuOpen="menuOpen"
+      v-if="encounterActive"
+      @next="next"
+      @previous="previous"
+      @toggle-menu="toggleMenu"
+    />
   </div>
 </template>
 
@@ -79,6 +79,9 @@ export default {
         return;
       }
     },
+    toggleMenu() {
+      EventBus.$emit("toggle-menu");
+    },
     endEncounter() {
       this.encounterActive = false;
     }
@@ -119,12 +122,15 @@ a {
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding-top: 10px;
+  position: relative;
 }
 .hamburger {
   width: 40px;
   cursor: pointer;
+  position: absolute;
+  left: 0;
 }
 .line {
   width: 20px;
@@ -133,14 +139,21 @@ a {
   margin: 5px;
 }
 .icon {
-  width: 25px;
+  width: 40px;
 }
 .logo {
   color: $primary-red;
 }
+
+.form-wrapper {
+  width: 100%;
+  max-width: 375px;
+}
 .dashboard-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+
   @include sm {
     flex-direction: row;
     justify-content: space-around;

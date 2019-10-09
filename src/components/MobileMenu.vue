@@ -1,13 +1,10 @@
 <template>
-  <div class="mobile-menu-wrapper">
-    <a href="#" class="close" v-on:click="toggleMenu"></a>
-  </div>
+  <div class="mobile-menu-wrapper"></div>
 </template>
 <script>
 import EventBus from "./EventBus";
 export default {
   name: "MobileMenu",
-  props: ["menuOpen"],
   methods: {
     toggleMenu() {
       EventBus.$emit("toggle-menu");
@@ -19,7 +16,7 @@ export default {
 @import "../assets/styles/variables.scss";
 
 .mobile-menu-wrapper {
-  height: 75%;
+  height: 100%;
   width: 100%;
   position: fixed;
   z-index: 44;
