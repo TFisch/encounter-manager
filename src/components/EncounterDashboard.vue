@@ -12,7 +12,7 @@
     </transition>
     <Controller
       v-bind:menuOpen="menuOpen"
-      v-if="encounterActive"
+      v-if="this.mobileView"
       @next="next"
       @previous="previous"
       @toggle-menu="toggleMenu"
@@ -28,6 +28,11 @@ import EventBus from "./EventBus.js";
 import MobileMenu from "./MobileMenu.vue";
 import Encounter from "../classes/Encounter";
 import Controller from "./Controller";
+import {
+  startStorageSession,
+  resumeStorageSession,
+  addCharToStorageSession
+} from "./StorageSession";
 
 export default {
   name: "EncounterDashboard",
@@ -40,7 +45,9 @@ export default {
       formActive: true,
       encounter: null,
       encounterActive: false,
-      activeChar: ""
+      activeChar: "",
+      mobileView: false,
+      storageSession: null
     };
   },
   methods: {
@@ -48,6 +55,12 @@ export default {
       this.newChar = newChar;
       this.encounterList.push(newChar);
       EventBus.$emit("add-to-list", this.encounterList);
+      if (!this.storageSession) {
+        startStorageSession(newChar);
+        this.storageSession = true;
+      } else {
+        addCharToStorageSession(newChar);
+      }
     },
     start() {
       if (!this.encounterActive) {
@@ -55,7 +68,9 @@ export default {
         let encounter = new Encounter(this.encounterList);
         this.encounter = encounter;
         this.activeChar = encounter.combatants[0];
-        this.formActive = !this.formActive;
+        if (this.formActive) {
+          this.formActive = false;
+        }
         EventBus.$emit("update-active-char", this.activeChar.id);
       } else {
         this.endEncounter();
@@ -87,6 +102,19 @@ export default {
     }
   },
   mounted() {
+    if (window.innerWidth < 575) {
+      this.mobileView = true;
+    }
+    const storage = window.localStorage;
+    if (Object.keys(storage).includes("EncounterManager")) {
+      this.storageSession = true;
+      const storageData = resumeStorageSession();
+      // storageData.encounterList.forEach(char => console.log(char));
+      for (const char of storageData.encounterList) {
+        this.encounterList.push(char);
+      }
+      EventBus.$emit("add-to-list", this.encounterList);
+    }
     EventBus.$on("toggle-menu", () => (this.menuOpen = !this.menuOpen));
   }
 };
