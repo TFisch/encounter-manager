@@ -63,14 +63,11 @@ export default {
 .char-form {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 80%;
+  min-width: 200px;
 }
 .newChar-input {
   border: solid black 1px;
-}
-
-.name-input {
-  width: 250px;
 }
 
 .init-input,
@@ -87,6 +84,7 @@ export default {
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  margin-top: 10px;
 }
 .submit {
   width: 80px;

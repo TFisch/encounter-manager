@@ -1,6 +1,6 @@
 <template>
   <div class="encounter-list">
-    <div class="header-row">
+    <div class="header-row" v-if="data.initiativeList.length > 0">
       <h2 class="header col-init">INIT</h2>
       <h2 class="header col-name">NAME</h2>
       <h2 class="header col-hp">HP</h2>
@@ -56,7 +56,7 @@ export default {
 }
 .header-row {
   display: flex;
-  width: 250px;
+  width: 80%;
 }
 .header {
   font-size: $fnt-sm;

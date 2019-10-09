@@ -25,7 +25,8 @@ label {
 .input-wrapper {
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  margin: 10px 0;
+  width: 100%;
 }
 .newChar-input {
   border: solid $white 1px;

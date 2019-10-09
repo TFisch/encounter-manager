@@ -43,8 +43,9 @@ export default {
   text-shadow: 2px 2px #000;
   align-items: center;
   margin: 0 0 20px;
-  width: 250px;
+  width: 80%;
   border: solid $white 1px;
+  min-width: 300px;
 }
 .char-name {
   flex-grow: 2;
