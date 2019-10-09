@@ -1,10 +1,18 @@
 <template>
-  <div class="mobile-menu-wrapper"></div>
+  <div class="mobile-menu-wrapper">
+    <div class="button-row">
+      <MobileMenuButton label="Reset" />
+      <MobileMenuButton label="Edit" />
+      <MobileMenuButton label="Save" />
+    </div>
+  </div>
 </template>
 <script>
+import MobileMenuButton from "./MobileMenuButton";
 import EventBus from "./EventBus";
 export default {
   name: "MobileMenu",
+  components: { MobileMenuButton },
   methods: {
     toggleMenu() {
       EventBus.$emit("toggle-menu");
@@ -21,6 +29,12 @@ export default {
   position: fixed;
   z-index: 44;
   background-color: $grey;
+}
+.button-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 100px;
 }
 .close {
   position: absolute;
