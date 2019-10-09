@@ -87,11 +87,12 @@ export default {
   margin-top: 10px;
 }
 .submit {
-  width: 80px;
+  width: 70px;
   border: solid $white 1px;
   border-radius: 5px;
-  font-family: "Heebo";
+  padding: 5px;
+  font-family: "Staatliches";
   background: $grey;
-  color: $primary-red;
+  color: $white;
 }
 </style>

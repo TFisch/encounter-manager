@@ -30,7 +30,7 @@ label {
 }
 .newChar-input {
   border: solid $white 1px;
-  font-family: "HeeboBold";
+  font-family: "OpenSans-Semi";
   background: $grey;
   height: 30px;
   border-radius: 6px;
