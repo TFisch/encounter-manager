@@ -2,7 +2,7 @@
   <div class="mobile-menu-wrapper">
     <div class="button-row">
       <MobileMenuButton label="Reset" />
-      <MobileMenuButton label="Edit" />
+      <MobileMenuButton label="Edit" @Edit="handleEdit" />
       <MobileMenuButton label="Save" />
     </div>
   </div>
@@ -16,6 +16,9 @@ export default {
   methods: {
     toggleMenu() {
       EventBus.$emit("toggle-menu");
+    },
+    handleEdit() {
+      this.$emit("toggle-edit");
     }
   }
 };

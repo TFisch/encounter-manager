@@ -1,13 +1,18 @@
 <template>
   <div>
-    <div class="mobile-menu-button">{{label}}</div>
+    <div class="mobile-menu-button" v-on:click="handleClick(label)">{{label}}</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "MobileMenuButton",
-  props: ["label"]
+  props: ["label", "click"],
+  methods: {
+    handleClick(label) {
+      this.$emit(label);
+    }
+  }
 };
 </script>
 
