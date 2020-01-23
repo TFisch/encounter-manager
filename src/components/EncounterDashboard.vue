@@ -8,7 +8,7 @@
     </div>
     <EncounterList v-bind="encounterList" @add-char="addChar" update-active-char="charId" />
     <transition name="fade">
-      <MobileMenu v-if="menuOpen"></MobileMenu>
+      <MobileMenu v-if="menuOpen" @toggle-edit="toggleEditMode"></MobileMenu>
     </transition>
     <Controller
       v-bind:menuOpen="menuOpen"
@@ -47,7 +47,8 @@ export default {
       encounterActive: false,
       activeChar: "",
       mobileView: false,
-      storageSession: null
+      storageSession: null,
+      editModeActive: false
     };
   },
   methods: {
@@ -96,6 +97,11 @@ export default {
     },
     toggleMenu() {
       EventBus.$emit("toggle-menu");
+    },
+    toggleEditMode() {
+      this.editModeActive = true;
+      this.menuOpen = false;
+      this.formActive = false;
     },
     endEncounter() {
       this.encounterActive = false;

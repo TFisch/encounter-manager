@@ -5,7 +5,13 @@
       <h2 class="header col-name">NAME</h2>
       <h2 class="header col-hp">HP</h2>
     </div>
-    <draggable v-model="data.iniativeList" group="people" @start="drag=true" @end="drag=false">
+    <draggable
+      v-model="data.iniativeList"
+      group="people"
+      :change="editList"
+      @start="drag=true"
+      @end="onEnd"
+    >
       <EncounterCard
         v-for="character in data.initiativeList"
         v-bind:key="character.id"
@@ -35,6 +41,13 @@ export default {
     populateList(charList) {
       const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
       this.data.initiativeList = sortedList;
+    },
+    editList() {
+      console.log("edit list");
+    },
+    onEnd(event) {
+      console.log(event.oldIndex);
+      console.log(event.newIndex);
     }
   },
   mounted() {
