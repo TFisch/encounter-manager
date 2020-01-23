@@ -8,7 +8,13 @@ Encounter Manager is a tool for Dungeons and Dragons DMs to help them keep track
 
 # What's New?
 
-- User can use the 'edit' menu to drag and drop character cards to manually reorder iniative.
+- User can use the 'edit' menu to drag and drop character cards to manually reorder initiative.
+
+# How's this thing work?
+
+- Enter all characters by name, initiative and HP, they will be reordered automatically on submission.
+- Click the swords icon to initiate combat.
+- Use the arrow keys to keep track of current player's turn.
 
 # Upcoming Features!
 
