@@ -26,3 +26,10 @@ $ npm run serve
 ## Tech
 
 Encounter Manager is developed using Vue.js
+
+## Contribute
+
+Please help me make this!
+-Tim
+
+[GitHub](https://github.com/TFisch/encounter-manager)
