@@ -1,29 +1,28 @@
-# encounter-manager
+# Encounter Manager
 
-## Project setup
-```
-npm install
-```
+Encounter Manager is a tool for Dungeons and Dragons DMs to help them keep track of combat initiative using a mobile device.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+|            Add Character Attributes            |           Automatically Orders Party           |            Keeps Track of Initiative             |
+| :--------------------------------------------: | :--------------------------------------------: | :----------------------------------------------: |
+| ![](https://i.ibb.co/9w6GRQz/em-one-scale.png) | ![](https://i.ibb.co/DpB3K4t/em-two-scale.png) | ![](https://i.ibb.co/rwSs0Hh/em-three-scale.png) |
 
-### Compiles and minifies for production
-```
-npm run build
-```
+# What's New?
 
-### Run your tests
-```
-npm run test
-```
+- User can use the 'edit' menu to drag and drop character cards to manually reorder iniative.
 
-### Lints and fixes files
-```
-npm run lint
+# Upcoming Features!
+
+- Clear list of active characters
+- Save reuseable characters in a party
+- Desktop View
+
+### Installation
+
+```sh
+$ npm install
+$ npm run serve
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Tech
+
+Encounter Manager is developed using Vue.js
