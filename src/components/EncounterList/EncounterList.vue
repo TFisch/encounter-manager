@@ -38,9 +38,11 @@ export default {
     };
   },
   methods: {
-    populateList(charList) {
-      const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
-      this.data.initiativeList = sortedList;
+    populateList(charList = null) {
+      if (charList) {
+        const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
+        this.data.initiativeList = sortedList;
+      }
     },
     editList() {
       console.log("edit list");
@@ -56,6 +58,9 @@ export default {
     });
     EventBus.$on("update-active-char", activeId => {
       this.activeId = activeId;
+    });
+    EventBus.$on("reset-storage", () => {
+      this.populateList([]);
     });
   }
 };

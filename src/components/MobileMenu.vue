@@ -1,7 +1,7 @@
 <template>
   <div class="mobile-menu-wrapper">
     <div class="button-row">
-      <MobileMenuButton label="Reset" />
+      <MobileMenuButton label="Reset" @Reset="clearStorage" />
       <MobileMenuButton label="Edit" @Edit="handleEdit" />
       <MobileMenuButton label="Save" />
     </div>
@@ -19,6 +19,10 @@ export default {
     },
     handleEdit() {
       this.$emit("toggle-edit");
+    },
+    clearStorage() {
+      EventBus.$emit("reset-storage");
+      localStorage.clear();
     }
   }
 };

@@ -38,6 +38,7 @@ export default {
       const charName = this.$refs.form.name.value;
       const charInitiative = this.$refs.form.initiative.value;
       const charHp = this.$refs.form.hp.value;
+
       if (charName === "" || charInitiative === "") {
         return;
       }

@@ -122,6 +122,10 @@ export default {
       EventBus.$emit("add-to-list", this.encounterList);
     }
     EventBus.$on("toggle-menu", () => (this.menuOpen = !this.menuOpen));
+    EventBus.$on("reset-storage", () => {
+      this.encounterList = [];
+      this.storageSession = null;
+    });
   }
 };
 </script>
