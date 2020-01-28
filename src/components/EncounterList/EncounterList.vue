@@ -11,6 +11,7 @@
       :change="editList"
       @start="drag=true"
       @end="onEnd"
+      :component-data="getComponentData()"
     >
       <EncounterCard
         v-for="character in data.initiativeList"
@@ -40,16 +41,41 @@ export default {
   methods: {
     populateList(charList = null) {
       if (charList) {
-        const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
-        this.data.initiativeList = sortedList;
+        // const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
+        this.data.initiativeList = charList;
       }
     },
     editList() {
       console.log("edit list");
     },
+    getComponentData() {
+      return {
+        on: {
+          change: this.onChange
+        }
+      };
+    },
+    onChange(event) {
+      console.log("change!");
+      // console.log(event);
+    },
     onEnd(event) {
-      console.log(event.oldIndex);
-      console.log(event.newIndex);
+      const oldIndex = event.oldIndex;
+      const newIndex = event.newIndex;
+      this.changeIndex(oldIndex, newIndex);
+    },
+    changeIndex(oldIndex, newIndex) {
+      if (newIndex >= this.data.initiativeList.length) {
+        var k = newIndex - this.data.initiativeList.length + 1;
+        while (k--) {
+          this.data.initiativeList.push(undefined);
+        }
+      }
+      this.data.initiativeList.splice(
+        newIndex,
+        0,
+        this.data.initiativeList.splice(oldIndex, 1)[0]
+      );
     }
   },
   mounted() {
