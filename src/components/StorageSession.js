@@ -18,6 +18,14 @@ export const resumeStorageSession = () => {
   return encounterData;
 };
 
+export const updateEncounterList = newList => {
+  const storage = window.localStorage;
+  const existingSession = JSON.parse(storage['EncounterManager']);
+  existingSession.encounterList = newList;
+  const storableData = JSON.stringify(existingSession);
+  storage.setItem('EncounterManager', storableData);
+};
+
 export const addCharToStorageSession = charToAdd => {
   const storage = window.localStorage;
   const encounterData = JSON.parse(storage.EncounterManager);

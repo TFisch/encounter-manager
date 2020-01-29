@@ -26,6 +26,7 @@
 import EncounterCard from "../EncounterCard/EncounterCard";
 import EventBus from "../EventBus";
 import draggable from "vuedraggable";
+import { updateEncounterList } from "../StorageSession";
 
 export default {
   name: "EncounterList",
@@ -76,6 +77,7 @@ export default {
         0,
         this.data.initiativeList.splice(oldIndex, 1)[0]
       );
+      updateEncounterList(this.data.initiativeList);
     }
   },
   mounted() {
