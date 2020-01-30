@@ -8,7 +8,6 @@
     <draggable
       v-model="data.iniativeList"
       group="people"
-      :change="editList"
       @start="drag=true"
       @end="onEnd"
       :component-data="getComponentData()"
@@ -40,14 +39,22 @@ export default {
     };
   },
   methods: {
-    populateList(charList = null) {
+    populateList(charList = null, newChar = false) {
+      console.log(charList, newChar);
       if (charList) {
         // const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
         this.data.initiativeList = charList;
+        if (newChar) {
+          this.sortList();
+        }
       }
     },
-    editList() {
-      console.log("edit list");
+    sortList() {
+      console.log("sorting");
+      const sortedList = this.data.initiativeList.sort(
+        (a, b) => a.initiative - b.initiative
+      );
+      this.data.initiativeList = sortedList;
     },
     getComponentData() {
       return {
@@ -80,15 +87,19 @@ export default {
       updateEncounterList(this.data.initiativeList);
     }
   },
+
   mounted() {
-    EventBus.$on("add-to-list", charList => {
-      this.populateList(charList);
+    EventBus.$on("add-to-list", (charList, addNew) => {
+      this.populateList(charList, addNew);
     });
     EventBus.$on("update-active-char", activeId => {
       this.activeId = activeId;
     });
     EventBus.$on("reset-storage", () => {
       this.populateList([]);
+    });
+    EventBus.$on("resume-session", list => {
+      this.populateList(list);
     });
   }
 };
