@@ -119,7 +119,7 @@ export default {
       for (const char of storageData.encounterList) {
         this.encounterList.push(char);
       }
-      EventBus.$emit("add-to-list", this.encounterList);
+      EventBus.$emit("resume-session", this.encounterList);
     }
     EventBus.$on("toggle-menu", () => (this.menuOpen = !this.menuOpen));
     EventBus.$on("reset-storage", () => {
