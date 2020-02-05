@@ -25,7 +25,7 @@
 import EncounterCard from "../EncounterCard/EncounterCard";
 import EventBus from "../EventBus";
 import draggable from "vuedraggable";
-import { updateEncounterList } from "../StorageSession";
+import { updateEncounterList, toggleCustomSet } from "../StorageSession";
 
 export default {
   name: "EncounterList",
@@ -34,7 +34,8 @@ export default {
     return {
       data: {
         initiativeList: [],
-        activeId: null
+        activeId: null,
+        customSet: false
       }
     };
   },
@@ -44,7 +45,8 @@ export default {
       if (charList) {
         // const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
         this.data.initiativeList = charList;
-        if (newChar) {
+        if (!this.customSet) {
+          console.log("newChar!");
           this.sortList();
         }
       }
@@ -71,6 +73,10 @@ export default {
       const oldIndex = event.oldIndex;
       const newIndex = event.newIndex;
       this.changeIndex(oldIndex, newIndex);
+      if (!this.customSet) {
+        this.customSet = true;
+        toggleCustomSet();
+      }
     },
     changeIndex(oldIndex, newIndex) {
       if (newIndex >= this.data.initiativeList.length) {
@@ -98,8 +104,9 @@ export default {
     EventBus.$on("reset-storage", () => {
       this.populateList([]);
     });
-    EventBus.$on("resume-session", list => {
-      this.populateList(list);
+    EventBus.$on("resume-session", async previousSession => {
+      this.customSet = await previousSession.customSet;
+      await this.populateList(previousSession.encounterList);
     });
   }
 };

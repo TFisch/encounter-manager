@@ -7,8 +7,9 @@ export const startStorageSession = newChar => {
   const storableData = JSON.stringify({
     encounterId,
     staged: true,
-    manualPos: false,
-    encounterList: [newChar]
+    // manualPos: false,
+    encounterList: [newChar],
+    customSet: false
   });
   storage.setItem('EncounterManager', storableData);
 };
@@ -23,8 +24,15 @@ export const updateEncounterList = newList => {
   const storage = window.localStorage;
   const existingSession = JSON.parse(storage['EncounterManager']);
   existingSession.encounterList = newList;
-  existingSession.manualPos = true;
-  console.log(existingSession);
+  // existingSession.manualPos = true;
+  const storableData = JSON.stringify(existingSession);
+  storage.setItem('EncounterManager', storableData);
+};
+
+export const toggleCustomSet = () => {
+  const storage = window.localStorage;
+  const existingSession = JSON.parse(storage['EncounterManager']);
+  existingSession.customSet = !existingSession.customSet;
   const storableData = JSON.stringify(existingSession);
   storage.setItem('EncounterManager', storableData);
 };
