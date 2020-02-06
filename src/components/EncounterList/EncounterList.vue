@@ -6,7 +6,7 @@
       <h2 class="header col-hp">HP</h2>
     </div>
     <draggable
-      v-model="data.iniativeList"
+      v-model="data.initiativeList"
       group="people"
       @start="drag=true"
       @end="onEnd"
@@ -35,24 +35,22 @@ export default {
       data: {
         initiativeList: [],
         activeId: null,
-        customSet: false
+        customSet: false,
+        setCustomActive: false
       }
     };
   },
   methods: {
-    populateList(charList = null, newChar = false) {
-      console.log(charList, newChar);
+    populateList(charList = null) {
       if (charList) {
         // const sortedList = charList.sort((a, b) => a.initiative - b.initiative);
         this.data.initiativeList = charList;
         if (!this.customSet) {
-          console.log("newChar!");
           this.sortList();
         }
       }
     },
     sortList() {
-      console.log("sorting");
       const sortedList = this.data.initiativeList.sort(
         (a, b) => a.initiative - b.initiative
       );
@@ -95,8 +93,8 @@ export default {
   },
 
   mounted() {
-    EventBus.$on("add-to-list", (charList, addNew) => {
-      this.populateList(charList, addNew);
+    EventBus.$on("add-to-list", charList => {
+      this.populateList(charList);
     });
     EventBus.$on("update-active-char", activeId => {
       this.activeId = activeId;
