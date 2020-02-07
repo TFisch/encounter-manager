@@ -8,7 +8,7 @@
     </div>
     <EncounterList v-bind="encounterList" @add-char="addChar" update-active-char="charId" />
     <transition name="fade">
-      <MobileMenu v-if="menuOpen" @toggle-edit="toggleEditMode"></MobileMenu>
+      <MobileMenu v-if="menuOpen" :editModeActive="editModeActive" @toggle-edit="toggleEditMode"></MobileMenu>
     </transition>
     <Controller
       v-bind:menuOpen="menuOpen"

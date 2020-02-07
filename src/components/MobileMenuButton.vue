@@ -25,7 +25,7 @@ export default {
   font-size: $fnt-sm;
   border: solid $white 0.8px;
   background: $grey;
-  width: 50px;
+  width: 75px;
   padding: 8px;
   border-radius: 10px;
   opacity: 0.7;

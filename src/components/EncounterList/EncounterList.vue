@@ -5,7 +5,16 @@
       <h2 class="header col-name">NAME</h2>
       <h2 class="header col-hp">HP</h2>
     </div>
+    <div v-if="!data.setCustomActive">
+      <EncounterCard
+        v-for="character in data.initiativeList"
+        v-bind:key="character.id"
+        v-bind:character="character"
+        v-bind:activeChar="data.activeId"
+      />
+    </div>
     <draggable
+      v-if="data.setCustomActive"
       v-model="data.initiativeList"
       group="people"
       @start="drag=true"
