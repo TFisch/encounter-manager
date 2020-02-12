@@ -99,9 +99,9 @@ export default {
       EventBus.$emit("toggle-menu");
     },
     toggleEditMode() {
-      this.editModeActive = true;
+      this.editModeActive = !this.editModeActive;
       this.menuOpen = false;
-      this.formActive = false;
+      this.formActive = !this.formActive;
     },
     endEncounter() {
       this.encounterActive = false;
