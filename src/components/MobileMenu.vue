@@ -3,7 +3,7 @@
     <div class="button-row">
       <MobileMenuButton label="Reset" @Reset="clearStorage" />
       <MobileMenuButton label="Edit" v-if="!this.editModeActive" @Edit="handleEdit" />
-      <MobileMenuButton label="Resume" v-if="this.editModeActive" @Edit="handleEdit" />
+      <MobileMenuButton label="Resume" v-if="this.editModeActive" @Resume="handleEdit" />
       <MobileMenuButton label="Save" />
     </div>
   </div>
