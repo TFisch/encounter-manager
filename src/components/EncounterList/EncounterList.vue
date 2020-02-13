@@ -5,7 +5,7 @@
       <h2 class="header col-name">NAME</h2>
       <h2 class="header col-hp">HP</h2>
     </div>
-    <div v-if="!data.setCustomActive">
+    <div v-if="!this.editModeActive">
       <EncounterCard
         v-for="character in data.initiativeList"
         v-bind:key="character.id"
@@ -13,21 +13,22 @@
         v-bind:activeChar="data.activeId"
       />
     </div>
-    <draggable
-      v-if="data.setCustomActive"
-      v-model="data.initiativeList"
-      group="people"
-      @start="drag=true"
-      @end="onEnd"
-      :component-data="getComponentData()"
-    >
-      <EncounterCard
-        v-for="character in data.initiativeList"
-        v-bind:key="character.id"
-        v-bind:character="character"
-        v-bind:activeChar="data.activeId"
-      />
-    </draggable>
+    <div v-if="this.editModeActive">
+      <draggable
+        v-model="data.initiativeList"
+        group="people"
+        @start="drag=true"
+        @end="onEnd"
+        :component-data="getComponentData()"
+      >
+        <EncounterCard
+          v-for="character in data.initiativeList"
+          v-bind:key="character.id"
+          v-bind:character="character"
+          v-bind:activeChar="data.activeId"
+        />
+      </draggable>
+    </div>
   </div>
 </template>
 <script>
@@ -49,6 +50,7 @@ export default {
       }
     };
   },
+  props: ["editModeActive"],
   methods: {
     populateList(charList = null) {
       if (charList) {
@@ -110,6 +112,10 @@ export default {
     });
     EventBus.$on("reset-storage", () => {
       this.populateList([]);
+    });
+    EventBus.$on("toggle-edit", () => {
+      console.log("toggleEdit...");
+      console.log(this.setCustomActive);
     });
     EventBus.$on("resume-session", async previousSession => {
       this.customSet = await previousSession.customSet;
